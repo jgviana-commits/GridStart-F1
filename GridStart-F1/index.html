@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="GridStart F1: aprende Fórmula 1 desde cero. Explora pilotos, escuderías, calendario, circuitos, estrategia y tecnología de la temporada 2026.">
+  <title>GridStart F1 — La Fórmula 1, explicada</title>
+  <link rel="preconnect" href="https://en.wikipedia.org" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="site-nav" aria-label="Navegación principal">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio" aria-label="GridStart F1, inicio">
+        <span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span>GridStart<span class="brand-accent">F1</span></span>
+      </a>
+      <button class="navbar-toggler" type="button" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Abrir menú">
+        <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+      </button>
+      <div class="navbar-collapse" id="menuPrincipal">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#pilotos">Pilotos</a></li>
+          <li class="nav-item"><a class="nav-link" href="#equipos">Escuderías</a></li>
+          <li class="nav-item"><a class="nav-link" href="#calendario">Temporada</a></li>
+          <li class="nav-item"><a class="nav-link" href="#aprende">Aprende F1</a></li>
+          <li class="nav-item ms-lg-2"><a class="nav-cta" href="#aprende">Comenzar a aprender <span aria-hidden="true">↗</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="inicio">
+    <section class="hero-section">
+      <div class="container hero-container">
+        <div class="hero-copy">
+          <div class="hero-eyebrow"><span class="eyebrow-line"></span> TEMPORADA 2026 <span class="eyebrow-dot"></span> GUÍA INTERACTIVA</div>
+          <h1>La Fórmula 1.<br><span>Entendida desde dentro.</span></h1>
+          <p class="hero-lead">Descubre qué sucede dentro y fuera de la pista. Conoce a los pilotos, entiende la estrategia y aprende cómo funciona el deporte más rápido del mundo.</p>
+          <div class="hero-actions">
+            <a class="button-primary" href="#aprende">Empieza por lo esencial <span aria-hidden="true">↗</span></a>
+            <a class="button-quiet" href="#pilotos">Explorar la parrilla <span aria-hidden="true">↓</span></a>
+          </div>
+          <div class="hero-footnote"><span class="hero-live-dot"></span><span id="heroApiStatus">Preparando datos de temporada...</span></div>
+        </div>
+
+        <div class="hero-art" aria-label="Panel de próxima carrera">
+          <div class="hero-art-top"><span>RACE HUB <span class="hero-season-tag">2026</span></span><span class="hero-live-label"><i></i> TEMPORADA</span></div>
+          <svg class="track-art" viewBox="0 0 620 420" fill="none" aria-hidden="true">
+            <path d="M77 290C112 252 132 217 173 206C214 195 256 239 294 219C334 198 322 127 369 100C408 78 463 100 466 143C469 188 425 201 430 246C435 292 494 305 536 268" stroke="white" stroke-opacity=".22" stroke-width="27" stroke-linecap="round"/>
+            <path d="M77 290C112 252 132 217 173 206C214 195 256 239 294 219C334 198 322 127 369 100C408 78 463 100 466 143C469 188 425 201 430 246C435 292 494 305 536 268" stroke="white" stroke-opacity=".7" stroke-width="1.5" stroke-dasharray="8 9" stroke-linecap="round"/>
+            <circle cx="77" cy="290" r="7" fill="#E10600"/><circle cx="536" cy="268" r="7" fill="#E10600"/>
+            <path d="M80 330H540" stroke="white" stroke-opacity=".08"/>
+            <path d="M80 350H430" stroke="white" stroke-opacity=".06"/>
+          </svg>
+          <div class="hero-art-watermark">F1</div>
+          <div class="race-feature">
+            <div class="race-feature-top"><span>PRÓXIMO GRAN PREMIO</span><span id="nextRound">RONDA —</span></div>
+            <div id="nextRaceContent" class="race-feature-content">
+              <p class="race-date-label">Consultando calendario</p>
+              <h2>La próxima cita.</h2>
+              <p class="race-meta">Los datos de la carrera aparecerán aquí.</p>
+            </div>
+            <a href="https://www.formula1.com/en/racing/2026" target="_blank" rel="noopener" class="race-feature-link">Calendario oficial <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="art-index">GS / 026</div>
+        </div>
+      </div>
+      <div class="container hero-bottom">
+        <div class="hero-stat"><span class="hero-stat-label">PILOTOS</span><strong id="statDrivers">—</strong><small>en la clasificación</small></div>
+        <div class="hero-stat"><span class="hero-stat-label">ESCUDERÍAS</span><strong id="statTeams">—</strong><small>en el campeonato</small></div>
+        <div class="hero-stat"><span class="hero-stat-label">GRANDES PREMIOS</span><strong id="statRaces">—</strong><small>en el calendario</small></div>
+        <div class="hero-stat hero-leader"><span class="hero-stat-label">LÍDER ACTUAL</span><strong id="statLeader">—</strong><small>campeonato de pilotos</small></div>
+      </div>
+    </section>
+
+    <section class="data-ribbon" aria-label="Estado de los datos">
+      <div class="container data-ribbon-inner">
+        <div class="data-state"><span id="apiStatusDot" class="status-dot loading"></span><span id="apiStatusText">Conectando con Jolpica F1 API...</span></div>
+        <div class="data-tools"><span id="lastUpdated">Datos de temporada · fuente Jolpica</span><button id="refreshData" type="button" class="text-button">Actualizar ↻</button></div>
+      </div>
+    </section>
+
+    <section class="section-block drivers-section" id="pilotos">
+      <div class="container">
+        <div class="section-heading heading-with-aside">
+          <div><p class="section-kicker">01 / LA PARRILLA</p><h2>Los protagonistas.</h2><p>Conoce a quienes llevan cada monoplaza al límite. Abre una ficha para consultar su posición y sus números de la temporada.</p></div>
+          <div class="section-aside"><span class="aside-big-number">01</span><span>DRIVERS<br>CHAMPIONSHIP</span></div>
+        </div>
+        <div class="filter-bar">
+          <div class="search-field"><span aria-hidden="true">⌕</span><label class="visually-hidden" for="searchPilot">Buscar piloto o escudería</label><input id="searchPilot" type="search" placeholder="Buscar piloto o escudería..."></div>
+          <label class="visually-hidden" for="teamFilter">Filtrar por escudería</label>
+          <select id="teamFilter" class="filter-select"><option value="all">Todas las escuderías</option></select>
+          <span id="driverRound" class="filter-note">Clasificación pendiente</span>
+        </div>
+        <div id="driversLoading" class="loading-state"><span class="loading-orbit"></span><span>Preparando la parrilla...</span></div>
+        <div id="driverCards" class="driver-grid" aria-live="polite"></div>
+        <div id="driversError" class="inline-error d-none"></div>
+        <p class="section-footnote">Los datos deportivos proceden de Jolpica F1 API. Las fotografías, cuando están disponibles, se consultan desde Wikipedia y pueden no aparecer para todos los pilotos.</p>
+      </div>
+    </section>
+
+    <section class="section-block teams-section" id="equipos">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-kicker">02 / LOS CONSTRUCTORES</p><h2>La fuerza de un equipo.</h2><p>En Fórmula 1 no gana una sola persona. Ingeniería, estrategia, mecánicos y pilotos suman para construir un campeonato.</p>
+        </div>
+        <div id="teamsLoading" class="loading-state"><span class="loading-orbit"></span><span>Cargando campeonato de constructores...</span></div>
+        <div id="teamCards" class="team-grid" aria-live="polite"></div>
+        <div id="teamsError" class="inline-error d-none"></div>
+      </div>
+    </section>
+
+    <section class="section-block season-section" id="calendario">
+      <div class="container">
+        <div class="section-heading heading-with-aside">
+          <div><p class="section-kicker">03 / EL CAMINO</p><h2>Una temporada. Cada detalle cuenta.</h2><p>Consulta las rondas, descubre dónde se corre y revisa qué carreras ya se disputaron.</p></div>
+          <a class="section-link" href="https://www.formula1.com/en/racing/2026" target="_blank" rel="noopener">Ver en Formula1.com ↗</a>
+        </div>
+        <div class="calendar-controls">
+          <div class="calendar-count" id="calendarCount">Cargando calendario...</div>
+          <div class="filter-segment" role="group" aria-label="Filtrar carreras">
+            <button type="button" class="active" data-race-filter="all">Todas</button>
+            <button type="button" data-race-filter="upcoming">Pendientes</button>
+            <button type="button" data-race-filter="completed">Finalizadas</button>
+          </div>
+        </div>
+        <div id="raceGrid" class="race-grid" aria-live="polite"></div>
+        <div id="racesError" class="inline-error d-none"></div>
+        <div class="circuits-heading"><div><p class="section-kicker">LOS ESCENARIOS</p><h3>Circuitos del campeonato.</h3></div><span>PAÍSES · TRAZADOS · HISTORIAS</span></div>
+        <div id="circuitGrid" class="circuit-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="learning-section section-block" id="aprende">
+      <div class="container">
+        <div class="learning-intro">
+          <div><p class="section-kicker">04 / GRIDSTART ACADEMY</p><h2>La F1 tiene su propio lenguaje.<br><span>Aprende a hablarlo.</span></h2></div>
+          <p>Una guía para entender el deporte desde cero: qué ocurre en un Gran Premio, cómo se gana tiempo, por qué importa cada decisión y qué hace diferente a la nueva generación de autos.</p>
+        </div>
+
+        <div class="learning-dashboard">
+          <aside class="learning-sidebar">
+            <span class="sidebar-label">RUTA DE APRENDIZAJE</span>
+            <button type="button" class="lesson-filter active" data-lesson-filter="all"><span>◎</span> Todos los temas <small id="lessonTotal">15</small></button>
+            <button type="button" class="lesson-filter" data-lesson-filter="fundamentos"><span>◉</span> Fundamentos</button>
+            <button type="button" class="lesson-filter" data-lesson-filter="fin de semana"><span>◷</span> Fin de semana</button>
+            <button type="button" class="lesson-filter" data-lesson-filter="tecnologia"><span>⌁</span> Tecnología</button>
+            <button type="button" class="lesson-filter" data-lesson-filter="estrategia"><span>↗</span> Estrategia</button>
+            <button type="button" class="lesson-filter" data-lesson-filter="seguridad"><span>⚑</span> Seguridad y reglas</button>
+            <div class="learning-tip"><span class="tip-icon">✦</span><strong>Consejo</strong><p>Empieza por fundamentos y avanza a tu ritmo. Cada tema explica conceptos que escucharás durante una carrera.</p></div>
+          </aside>
+          <div class="learning-main">
+            <div class="learning-toolbar"><div><span class="eyebrow-dark">BIBLIOTECA DE CONOCIMIENTO</span><h3>Explora los temas.</h3></div><div class="lesson-search"><span aria-hidden="true">⌕</span><label class="visually-hidden" for="lessonSearch">Buscar un tema</label><input id="lessonSearch" type="search" placeholder="Buscar concepto..."></div></div>
+            <div id="lessonGrid" class="lesson-grid" aria-live="polite"></div>
+            <div id="lessonEmpty" class="lesson-empty d-none">No encontramos temas con esa búsqueda. Prueba con otra palabra.</div>
+          </div>
+        </div>
+
+        <div class="quiz-panel" id="quiz">
+          <div class="quiz-heading"><p class="section-kicker">COMPRUEBA LO QUE APRENDISTE</p><h3>¿Qué tanto sabes de F1?</h3><p>Responde cinco preguntas rápidas. Al final verás tu resultado y las respuestas correctas.</p></div>
+          <div id="quizContent" class="quiz-content"></div>
+          <div id="quizResult" class="quiz-result d-none" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block rules-section" id="reglas2026">
+      <div class="container">
+        <div class="rules-layout">
+          <div class="rules-intro"><p class="section-kicker">05 / NUEVA GENERACIÓN</p><h2>2026 cambia<br>las reglas del juego.</h2><p>Los monoplazas de 2026 estrenan una nueva filosofía técnica. Comprender estos conceptos ayuda a entender por qué los pilotos gestionan energía y aerodinámica de otra manera.</p><a class="button-primary" href="https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz" target="_blank" rel="noopener">Guía oficial de 2026 ↗</a></div>
+          <div class="rules-cards">
+            <article class="rule-card"><span class="rule-index">01</span><div><h3>Aerodinámica activa</h3><p>Los alerones delantero y trasero pueden cambiar de configuración. En rectas se reduce la resistencia; en curvas se utiliza una configuración que favorece el agarre.</p><span class="rule-tag">STRAIGHT MODE · CORNER MODE</span></div></article>
+            <article class="rule-card"><span class="rule-index">02</span><div><h3>Unidad de potencia híbrida</h3><p>Se mantiene el V6 turbo de 1.6 litros, pero la parte eléctrica gana peso. El MGU-K puede entregar hasta 350 kW y desaparece el MGU-H.</p><span class="rule-tag">MOTOR · BATERÍA · RECUPERACIÓN</span></div></article>
+            <article class="rule-card"><span class="rule-index">03</span><div><h3>Combustible sostenible avanzado</h3><p>La categoría utiliza combustible avanzado sostenible. El objetivo es reducir el impacto del combustible sin cambiar la esencia de la competición.</p><span class="rule-tag">SOSTENIBILIDAD</span></div></article>
+            <article class="rule-card"><span class="rule-index">04</span><div><h3>Overtake, Boost y Recharge</h3><p>El piloto gestiona distintas herramientas eléctricas: energía extra para atacar, potencia bajo demanda y recuperación para recargar la batería.</p><span class="rule-tag">GESTIÓN DE ENERGÍA</span></div></article>
+          </div>
+        </div>
+        <div class="rules-note">Las reglas técnicas y deportivas pueden actualizarse durante el campeonato. Esta sección es una introducción educativa; para aplicar una norma a un caso concreto, consulta siempre la versión vigente publicada por la FIA.</div>
+      </div>
+    </section>
+
+    <section class="sources-section section-block">
+      <div class="container">
+        <div class="sources-top"><div><p class="section-kicker">PARA SEGUIR EXPLORANDO</p><h2>Aprende de fuentes oficiales.</h2></div><p>GridStart resume y organiza información para facilitar el aprendizaje. Estas fuentes permiten profundizar y comprobar los datos.</p></div>
+        <div class="source-grid">
+          <a class="source-card" href="https://www.formula1.com/en/latest/article/the-beginners-guide-to-the-2026-regulations.6j0tS0hrHG2T01tpmK6XYz" target="_blank" rel="noopener"><span>01</span><div><strong>Formula 1</strong><small>Guía para principiantes · Reglas 2026</small></div><b>↗</b></a>
+          <a class="source-card" href="https://www.fia.com/regulation/category/110" target="_blank" rel="noopener"><span>02</span><div><strong>FIA</strong><small>Reglamentos técnicos y deportivos</small></div><b>↗</b></a>
+          <a class="source-card" href="https://api.jolpi.ca/docs/" target="_blank" rel="noopener"><span>03</span><div><strong>Jolpica F1 API</strong><small>Datos y documentación de endpoints</small></div><b>↗</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-main"><a class="navbar-brand footer-brand" href="#inicio"><span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span><span>GridStart<span class="brand-accent">F1</span></span></a><p>Una forma más clara de entender cada vuelta.</p><a href="#inicio" class="back-top">Volver arriba ↑</a></div>
+    <div class="container footer-bottom"><span>© 2026 GridStart F1 · Proyecto académico independiente.</span><span>Datos deportivos: Jolpica F1 API · Contenido normativo: FIA y Formula 1.</span><span>GridStart F1 no está afiliado a Formula 1 ni a la FIA.</span></div>
+  </footer>
+
+  <dialog class="site-dialog" id="driverModal" aria-labelledby="driverModalTitle">
+    <div class="profile-modal">
+      <button type="button" class="modal-close" data-close-dialog="driverModal" aria-label="Cerrar">×</button>
+      <div id="profileVisual" class="profile-visual"><span id="profileNumber" class="profile-number">—</span><span class="profile-team-mark" id="profileTeamMark">GRIDSTART</span></div>
+      <div class="profile-body"><div class="profile-heading"><div><p class="section-kicker">PERFIL DE PILOTO · 2026</p><h2 id="driverModalTitle">Piloto</h2><p id="profileMeta" class="profile-meta"></p></div><span id="profilePosition" class="profile-position">P—</span></div>
+        <div class="profile-stats"><div><span>PUNTOS</span><strong id="profilePoints">—</strong></div><div><span>VICTORIAS</span><strong id="profileWins">—</strong></div><div><span>NÚMERO</span><strong id="profileRaceNumber">—</strong></div></div>
+        <p id="profileDob" class="profile-extra"></p><a id="profileWiki" class="profile-link" href="#" target="_blank" rel="noopener">Conocer más sobre el piloto ↗</a>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="site-dialog lesson-dialog" id="lessonModal" aria-labelledby="lessonModalTitle">
+    <div class="lesson-modal">
+      <div class="lesson-modal-top"><div><p id="lessonModalCategory" class="section-kicker">GRIDSTART ACADEMY</p><h2 id="lessonModalTitle">Tema</h2><p id="lessonModalMeta" class="lesson-modal-meta"></p></div><button type="button" class="modal-close modal-close-light" data-close-dialog="lessonModal" aria-label="Cerrar">×</button></div>
+      <div id="lessonModalBody" class="lesson-modal-body"></div>
+      <div class="lesson-modal-footer"><span>GRIDSTART ACADEMY · APRENDE A TU RITMO</span><button type="button" class="button-primary" data-close-dialog="lessonModal">Entendido</button></div>
+    </div>
+  </dialog>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "gridstart-f1",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Plataforma educativa premium de Fórmula 1 con datos dinámicos de Jolpica F1 API, perfiles de pilotos y GridStart Academy.",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check js/script.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
